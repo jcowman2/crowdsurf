@@ -25,6 +25,6 @@ class ScoreLineEvent extends GameEvent {
     protected List<OutputLine> generateOutput() {
         List<OutputLine> output = []
 
-        output << new OutputLine("Points received: +$lyricPoints. Total Score: $totalScore")
+        output << OutputLine.normal("Points received: +$lyricPoints. Total Score: $totalScore")
     }
 }

@@ -1,6 +1,7 @@
 package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.api.model.OutputLineType
 import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.LyricScorecard
 import com.joecowman.crowdsurf.game.util.RhymeUtil
@@ -42,17 +43,18 @@ class AddLineEvent extends GameEvent {
     protected List<OutputLine> generateOutput() {
         List<OutputLine> output = []
 
-        output << new OutputLine("You sing \"$newLine.text\".")
+        output << OutputLine.normal("You sing \"$newLine.text\".")
 
         if (!isFirst) {
             if (isRhyme) {
-                output << new OutputLine("That rhymed with line $rhymeLine!")
+                output << OutputLine.debug("That rhymed with line $rhymeLine!")
             } else {
-                output << new OutputLine("That didn't rhyme.")
+                output << OutputLine.debug("That didn't rhyme.")
             }
         }
 
-        output << new OutputLine("That line had a score of $contextScore.")
+        String plural = (contextScore == 1) ? "" : "s"
+        output << OutputLine.debug("That line had $contextScore keyword$plural.")
 
         return output
     }
