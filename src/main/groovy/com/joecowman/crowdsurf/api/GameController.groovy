@@ -6,9 +6,10 @@ import com.joecowman.crowdsurf.api.model.GameRequest
 import com.joecowman.crowdsurf.api.model.GameResponse
 import com.joecowman.crowdsurf.api.model.OutputLine
 import com.joecowman.crowdsurf.game.event.AddLineEvent
+import com.joecowman.crowdsurf.game.model.ContextWord
 import com.joecowman.crowdsurf.game.model.GameState
 import com.joecowman.crowdsurf.game.model.LyricLine
-import com.joecowman.crowdsurf.game.model.Lyrics
+import com.joecowman.crowdsurf.game.model.Song
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -51,11 +52,12 @@ class GameController {
 
         if (!state) {
             state = new GameState(commandNumber: 0)
-            state.lyrics = new Lyrics()
+            state.currentSong = new Song()
+            state.currentSong.contextWords.add(new ContextWord(word: 'dog', topicWords: ['animal']))
         }
         state.commandNumber++
 
-        AddLineEvent cmd = new AddLineEvent(newLine: new LyricLine(text: command), lyrics: state.lyrics)
+        AddLineEvent cmd = new AddLineEvent(newLine: new LyricLine(text: command), song: state.currentSong)
         cmd.execute()
         List<OutputLine> output = cmd.output
 

@@ -14,4 +14,7 @@ interface DatamuseClient {
     @GetMapping("/words?rel_rhy={word}")
     List<DmWord> rhymes(@RequestParam("word") String word)
 
+    @GetMapping("/words?ml={word}&topics={topics}&max={max}")
+    List<DmWord> similar(@RequestParam("word") String word, @RequestParam("topics") String topics, @RequestParam("max") int max)
+
 }

@@ -3,7 +3,7 @@ package com.joecowman.crowdsurf.game.util
 import com.joecowman.crowdsurf.accessor.DatamuseClient
 import com.joecowman.crowdsurf.accessor.model.DmWord
 import com.joecowman.crowdsurf.game.model.LyricLine
-import com.joecowman.crowdsurf.game.model.Lyrics
+import com.joecowman.crowdsurf.game.model.Song
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -29,13 +29,13 @@ class RhymeUtil {
     }
 
     //Returns -1 if no match, otherwise index of MOST RECENT match
-    static int recentRhyme(LyricLine newLine, Lyrics lyrics, int num = PREVIOUS_LINES_TO_CHECK_FOR_RHYME) {
-        List<LyricLine> lines = lyrics.lines.takeRight(num).reverse()
+    static int recentRhyme(LyricLine newLine, Song lyrics, int num = PREVIOUS_LINES_TO_CHECK_FOR_RHYME) {
+        List<LyricLine> lines = lyrics.lyrics.takeRight(num).reverse()
 
         int localIndex = lyricsRhyme(newLine, lines)
 
         if (localIndex >= 0) {
-            return lyrics.lines.size() - 1 - localIndex
+            return lyrics.lyrics.size() - 1 - localIndex
         } else {
             return -1
         }
