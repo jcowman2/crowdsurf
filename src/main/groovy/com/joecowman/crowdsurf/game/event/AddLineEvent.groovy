@@ -15,7 +15,8 @@ class AddLineEvent extends GameEvent {
     private int rhymeLine
     private int contextScore
 
-    void execute(GameInstance game) {
+    @Override
+    protected void onExecute(GameInstance game) {
         super.execute(game)
 
         Song song = game.state.currentSong
@@ -35,9 +36,8 @@ class AddLineEvent extends GameEvent {
         song.lyrics.add(newLine)
     }
 
-    List<OutputLine> getOutput() {
-        super.getOutput()
-
+    @Override
+    protected List<OutputLine> generateOutput() {
         List<OutputLine> output = []
 
         output << new OutputLine("You sing \"$newLine.text\".")

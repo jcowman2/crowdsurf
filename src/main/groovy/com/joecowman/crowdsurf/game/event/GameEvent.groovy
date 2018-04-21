@@ -10,6 +10,7 @@ abstract class GameEvent {
 
     void execute(GameInstance game) {
         hasExecuted = true
+        onExecute(game)
     }
 
     List<OutputLine> getOutput() {
@@ -17,7 +18,10 @@ abstract class GameEvent {
             throw new EventNotYetExecutedException()
         }
 
-        return null
+        return generateOutput()
     }
 
+    protected abstract void onExecute(GameInstance game)
+
+    protected abstract List<OutputLine> generateOutput()
 }
