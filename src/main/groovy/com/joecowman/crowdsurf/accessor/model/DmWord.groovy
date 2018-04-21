@@ -1,4 +1,4 @@
-package com.joecowman.crowdsurf.model
+package com.joecowman.crowdsurf.accessor.model
 
 class DmWord {
     String word
