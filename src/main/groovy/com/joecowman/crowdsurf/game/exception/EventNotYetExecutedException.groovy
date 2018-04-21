@@ -1,4 +1,4 @@
-package com.joecowman.crowdsurf.game.function
+package com.joecowman.crowdsurf.game.exception
 
 import groovy.transform.InheritConstructors
 

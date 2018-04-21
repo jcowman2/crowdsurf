@@ -1,6 +1,7 @@
-package com.joecowman.crowdsurf.game.function
+package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.exception.EventNotYetExecutedException
 
 abstract class GameEvent {
 

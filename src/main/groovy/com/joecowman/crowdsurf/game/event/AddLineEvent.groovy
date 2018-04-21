@@ -1,31 +1,36 @@
-package com.joecowman.crowdsurf.game.function
+package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.util.RhymeUtil
 import com.joecowman.crowdsurf.game.model.LyricLine
-import com.joecowman.crowdsurf.game.model.Lyrics
+import com.joecowman.crowdsurf.game.model.Song
+import com.joecowman.crowdsurf.game.util.SimilarUtil
 
 class AddLineEvent extends GameEvent {
     LyricLine newLine
-    Lyrics lyrics
+    Song song
 
     private boolean isFirst
     private boolean isRhyme
     private int rhymeLine
+    private int contextScore
 
     void execute() {
         super.execute()
 
-        if (lyrics.lines.size() == 0) {
+        if (song.lyrics.size() == 0) {
             isFirst = true
         } else {
-            rhymeLine = LyricEval.recentRhyme(newLine, lyrics)
+            rhymeLine = RhymeUtil.recentRhyme(newLine, song)
 
             if (rhymeLine >= 0) {
                 isRhyme = true
             }
         }
 
-        lyrics.lines.add(newLine)
+        contextScore = SimilarUtil.testSimilar(newLine, song.contextWords)
+
+        song.lyrics.add(newLine)
     }
 
     List<OutputLine> getOutput() {
@@ -42,6 +47,8 @@ class AddLineEvent extends GameEvent {
                 output << new OutputLine("That didn't rhyme.")
             }
         }
+
+        output << new OutputLine("That line had a score of $contextScore.")
 
         return output
     }
