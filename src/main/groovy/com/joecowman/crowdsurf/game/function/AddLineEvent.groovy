@@ -17,9 +17,12 @@ class AddLineEvent extends GameEvent {
 
         if (lyrics.lines.size() == 0) {
             isFirst = true
-        } else if (LyricEval.lyricsRhyme(newLine, lyrics.lines.last())) {
-            isRhyme = true
-            rhymeLine = lyrics.lines.size() - 1
+        } else {
+            rhymeLine = LyricEval.recentRhyme(newLine, lyrics)
+
+            if (rhymeLine >= 0) {
+                isRhyme = true
+            }
         }
 
         lyrics.lines.add(newLine)
