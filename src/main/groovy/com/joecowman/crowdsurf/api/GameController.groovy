@@ -5,7 +5,7 @@ import com.joecowman.crowdsurf.api.model.GameInfo
 import com.joecowman.crowdsurf.api.model.GameRequest
 import com.joecowman.crowdsurf.api.model.GameResponse
 import com.joecowman.crowdsurf.api.model.OutputLine
-import com.joecowman.crowdsurf.game.function.AddLineEvent
+import com.joecowman.crowdsurf.game.event.AddLineEvent
 import com.joecowman.crowdsurf.game.model.GameState
 import com.joecowman.crowdsurf.game.model.LyricLine
 import com.joecowman.crowdsurf.game.model.Lyrics

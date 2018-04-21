@@ -1,6 +1,7 @@
-package com.joecowman.crowdsurf.game.function
+package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.util.RhymeUtil
 import com.joecowman.crowdsurf.game.model.LyricLine
 import com.joecowman.crowdsurf.game.model.Lyrics
 
@@ -18,7 +19,7 @@ class AddLineEvent extends GameEvent {
         if (lyrics.lines.size() == 0) {
             isFirst = true
         } else {
-            rhymeLine = LyricEval.recentRhyme(newLine, lyrics)
+            rhymeLine = RhymeUtil.recentRhyme(newLine, lyrics)
 
             if (rhymeLine >= 0) {
                 isRhyme = true
