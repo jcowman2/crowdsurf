@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam
 interface DatamuseClient {
 
     @GetMapping("/words?ml={word}&md=fps")
-    List<DmWord> similarMeaning(@RequestParam("word") String word)
+    List<DmWord> similarMeaningMetadata(@RequestParam("word") String word)
+
+    @GetMapping("/words?rel_rhy={word}")
+    List<DmWord> rhymes(@RequestParam("word") String word)
 
 }

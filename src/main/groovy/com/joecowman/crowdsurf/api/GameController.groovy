@@ -4,7 +4,11 @@ import com.joecowman.crowdsurf.accessor.DatamuseClient
 import com.joecowman.crowdsurf.api.model.GameInfo
 import com.joecowman.crowdsurf.api.model.GameRequest
 import com.joecowman.crowdsurf.api.model.GameResponse
+import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.function.AddLineEvent
 import com.joecowman.crowdsurf.game.model.GameState
+import com.joecowman.crowdsurf.game.model.LyricLine
+import com.joecowman.crowdsurf.game.model.Lyrics
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -24,7 +28,7 @@ class GameController {
 
     @PostMapping("/similar") //todo remove
     ResponseEntity rate(@RequestBody String lyric) {
-        return ResponseEntity.ok(datamuseClient.similarMeaning(lyric))
+        return ResponseEntity.ok(datamuseClient.similarMeaningMetadata(lyric))
     }
 
     @GetMapping("/info")
@@ -47,11 +51,16 @@ class GameController {
 
         if (!state) {
             state = new GameState(commandNumber: 0)
+            state.lyrics = new Lyrics()
         }
         state.commandNumber++
 
+        AddLineEvent cmd = new AddLineEvent(newLine: new LyricLine(text: command), lyrics: state.lyrics)
+        cmd.execute()
+        List<OutputLine> output = cmd.output
+
         GameResponse response = new GameResponse(
-                message: "Command #$state.commandNumber: You said \"$command\"",
+                output: output,
                 state: state
         )
 

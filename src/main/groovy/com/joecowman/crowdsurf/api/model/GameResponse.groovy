@@ -3,6 +3,6 @@ package com.joecowman.crowdsurf.api.model
 import com.joecowman.crowdsurf.game.model.GameState
 
 class GameResponse {
-    String message
+    List<OutputLine> output
     GameState state
 }
