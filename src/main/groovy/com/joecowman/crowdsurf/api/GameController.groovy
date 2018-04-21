@@ -4,6 +4,8 @@ import com.joecowman.crowdsurf.accessor.DatamuseClient
 import com.joecowman.crowdsurf.api.model.GameInfo
 import com.joecowman.crowdsurf.api.model.GameRequest
 import com.joecowman.crowdsurf.api.model.GameResponse
+import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.function.AddLine
 import com.joecowman.crowdsurf.game.function.LyricEval
 import com.joecowman.crowdsurf.game.model.GameState
 import com.joecowman.crowdsurf.game.model.LyricLine
@@ -53,22 +55,27 @@ class GameController {
             state.lyrics = new Lyrics()
         }
         state.commandNumber++
-        state.lyrics.add(new LyricLine(text: command))
 
-        String message = "Command #$state.commandNumber: You sing \"$command\""
+        AddLine cmd = new AddLine(newLine: new LyricLine(text: command), lyrics: state.lyrics)
+        cmd.execute()
+        List<OutputLine> output = cmd.output
 
-        if (state.lyrics.lines.size() > 1) {
-            LyricLine lastLine = state.lyrics.lines.last()
-            LyricLine secondToLast = state.lyrics.lines[state.lyrics.lines.size() - 2]
-            if (LyricEval.lyricsRhyme(lastLine, secondToLast)) {
-                message += "\nThat rhymed!!"
-            } else {
-                message += "\nThat didn't rhyme."
-            }
-        }
+//        state.lyrics.add(new LyricLine(text: command))
+//
+//        String message = "Command #$state.commandNumber: You sing \"$command\""
+//
+//        if (state.lyrics.lines.size() > 1) {
+//            LyricLine lastLine = state.lyrics.lines.last()
+//            LyricLine secondToLast = state.lyrics.lines[state.lyrics.lines.size() - 2]
+//            if (LyricEval.lyricsRhyme(lastLine, secondToLast)) {
+//                message += "\nThat rhymed!!"
+//            } else {
+//                message += "\nThat didn't rhyme."
+//            }
+//        }
 
         GameResponse response = new GameResponse(
-                message: message,
+                message: output.first().text,
                 state: state
         )
 
