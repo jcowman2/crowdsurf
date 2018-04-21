@@ -2,6 +2,7 @@ package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
 import com.joecowman.crowdsurf.game.model.GameInstance
+import com.joecowman.crowdsurf.game.model.LyricScorecard
 import com.joecowman.crowdsurf.game.util.RhymeUtil
 import com.joecowman.crowdsurf.game.model.LyricLine
 import com.joecowman.crowdsurf.game.model.Song
@@ -32,6 +33,9 @@ class AddLineEvent extends GameEvent {
         contextScore = SimilarUtil.testSimilar(newLine, song.contextWords)
 
         song.lyrics.add(newLine)
+
+        LyricScorecard scorecard = new LyricScorecard(didRhyme: isRhyme, contextScore: contextScore)
+        game.doNext(new ScoreLineEvent(scorecard: scorecard))
     }
 
     @Override

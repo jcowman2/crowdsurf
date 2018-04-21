@@ -6,6 +6,7 @@ import com.joecowman.crowdsurf.game.event.GameEvent
 class GameInstance {
     private Queue<GameEvent> eventQueue = new PriorityQueue<>()
     private List<GameEvent> eventLog = new ArrayList<>()
+    private List<OutputLine> output = new ArrayList<>()
 
     GameState state
 
@@ -18,6 +19,7 @@ class GameInstance {
             GameEvent event = eventQueue.poll()
             event.execute(this)
             eventLog.add(event)
+            output.addAll(event.output)
         }
         return this
     }
@@ -27,6 +29,6 @@ class GameInstance {
     }
 
     List<OutputLine> getOutput() {
-        return eventLog.collectMany { it.output }
+        return output
     }
 }

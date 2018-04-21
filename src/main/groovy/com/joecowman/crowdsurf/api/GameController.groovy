@@ -52,7 +52,7 @@ class GameController {
         GameState state = gameIn.state
 
         if (!state) {
-            state = new GameState(commandNumber: 0)
+            state = new GameState()
             state.currentSong = new Song()
             state.currentSong.contextWords.add(new ContextWord(word: 'dog', topicWords: ['animal']))
         }
