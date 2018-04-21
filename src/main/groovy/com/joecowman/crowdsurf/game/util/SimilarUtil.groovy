@@ -20,7 +20,8 @@ class SimilarUtil {
 
     static int testSimilar(LyricLine line, List<ContextWord> keywords) {
         int matches = 0
-        List<String> tests = line.words + line.bigrams
+        List<String> tests = (line.words + line.bigrams).unique()
+
 
         keywords.each { word ->
             List<String> similars = datamuseClient.similar(word.word, word.topicString, SIMILAR_REQUEST_LENGTH).collect{it.word}
