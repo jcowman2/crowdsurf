@@ -29,13 +29,13 @@ class RhymeUtil {
     }
 
     //Returns -1 if no match, otherwise index of MOST RECENT match
-    static int recentRhyme(LyricLine newLine, Song lyrics, int num = PREVIOUS_LINES_TO_CHECK_FOR_RHYME) {
-        List<LyricLine> lines = lyrics.lyrics.takeRight(num).reverse()
+    static int recentRhyme(LyricLine newLine, Song song, int num = PREVIOUS_LINES_TO_CHECK_FOR_RHYME) {
+        List<LyricLine> lines = song.lyrics.takeRight(num).reverse()
 
         int localIndex = lyricsRhyme(newLine, lines)
 
         if (localIndex >= 0) {
-            return lyrics.lyrics.size() - 1 - localIndex
+            return song.lyrics.size() - 1 - localIndex
         } else {
             return -1
         }
