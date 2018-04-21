@@ -1,6 +1,7 @@
 package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.util.RhymeUtil
 import com.joecowman.crowdsurf.game.model.LyricLine
 import com.joecowman.crowdsurf.game.model.Song
@@ -8,15 +9,16 @@ import com.joecowman.crowdsurf.game.util.SimilarUtil
 
 class AddLineEvent extends GameEvent {
     LyricLine newLine
-    Song song
 
     private boolean isFirst
     private boolean isRhyme
     private int rhymeLine
     private int contextScore
 
-    void execute() {
-        super.execute()
+    void execute(GameInstance game) {
+        super.execute(game)
+
+        Song song = game.state.currentSong
 
         if (song.lyrics.size() == 0) {
             isFirst = true

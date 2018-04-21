@@ -7,6 +7,7 @@ import com.joecowman.crowdsurf.api.model.GameResponse
 import com.joecowman.crowdsurf.api.model.OutputLine
 import com.joecowman.crowdsurf.game.event.AddLineEvent
 import com.joecowman.crowdsurf.game.model.ContextWord
+import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.GameState
 import com.joecowman.crowdsurf.game.model.LyricLine
 import com.joecowman.crowdsurf.game.model.Song
@@ -57,13 +58,14 @@ class GameController {
         }
         state.commandNumber++
 
-        AddLineEvent cmd = new AddLineEvent(newLine: new LyricLine(text: command), song: state.currentSong)
-        cmd.execute()
-        List<OutputLine> output = cmd.output
+        GameInstance game = new GameInstance(state)
+        AddLineEvent cmd = new AddLineEvent(newLine: new LyricLine(text: command))
+        game.doNext(cmd)
+        game.run()
 
         GameResponse response = new GameResponse(
-                output: output,
-                state: state
+                output: game.output,
+                state: game.state
         )
 
         return ResponseEntity.ok(response)
