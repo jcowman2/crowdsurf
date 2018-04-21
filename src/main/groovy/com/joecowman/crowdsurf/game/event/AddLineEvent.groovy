@@ -17,8 +17,6 @@ class AddLineEvent extends GameEvent {
 
     @Override
     protected void onExecute(GameInstance game) {
-        super.execute(game)
-
         Song song = game.state.currentSong
 
         if (song.lyrics.size() == 0) {
