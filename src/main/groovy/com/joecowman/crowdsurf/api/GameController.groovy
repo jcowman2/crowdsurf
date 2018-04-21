@@ -3,6 +3,8 @@ package com.joecowman.crowdsurf.api
 import com.joecowman.crowdsurf.accessor.DatamuseClient
 import com.joecowman.crowdsurf.api.model.GameInfo
 import com.joecowman.crowdsurf.api.model.GameRequest
+import com.joecowman.crowdsurf.api.model.GameResponse
+import com.joecowman.crowdsurf.game.model.GameState
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -38,9 +40,22 @@ class GameController {
         return ResponseEntity.ok(info)
     }
 
-    @PostMapping
+    @PostMapping("/play")
     ResponseEntity play(@RequestBody GameRequest gameIn) {
+        String command = gameIn.command
+        GameState state = gameIn.state
 
+        if (!state) {
+            state = new GameState(commandNumber: 0)
+        }
+        state.commandNumber++
+
+        GameResponse response = new GameResponse(
+                message: "Command #$state.commandNumber: You said \"$command\"",
+                state: state
+        )
+
+        return ResponseEntity.ok(response)
     }
 
 }
