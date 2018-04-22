@@ -1,11 +1,10 @@
 package com.joecowman.crowdsurf.api
 
 import com.joecowman.crowdsurf.accessor.DatamuseClient
-import com.joecowman.crowdsurf.accessor.FileReader
+import com.joecowman.crowdsurf.accessor.FileAccessor
 import com.joecowman.crowdsurf.api.model.GameInfo
 import com.joecowman.crowdsurf.api.model.GameRequest
 import com.joecowman.crowdsurf.api.model.GameResponse
-import com.joecowman.crowdsurf.api.model.OutputLine
 import com.joecowman.crowdsurf.game.event.AddLineEvent
 import com.joecowman.crowdsurf.game.model.ContextWord
 import com.joecowman.crowdsurf.game.model.GameInstance
@@ -31,7 +30,7 @@ class GameController {
 
     @GetMapping("/info")
     ResponseEntity info() {
-        System.out.println(FileReader.getRandomTopics(3))
+        System.out.println(FileAccessor.getRandomTopics(3))
         GameInfo info = new GameInfo(
                 title: "Crowdsurf",
                 author: "Joe Cowman",
@@ -51,7 +50,7 @@ class GameController {
         if (!state) {
             state = new GameState()
             state.currentSong = new Song()
-            state.currentSong.contextWords.add(new ContextWord(word: 'dog', topicWords: ['animal']))
+            state.currentSong.contextWords.add(new ContextWord('dog', ['animal']))
         }
         state.commandNumber++
 

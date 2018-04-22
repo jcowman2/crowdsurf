@@ -5,7 +5,7 @@ import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
 
 @Component
-class FileReader {
+class FileAccessor {
 
     static Resource topicsFile
 

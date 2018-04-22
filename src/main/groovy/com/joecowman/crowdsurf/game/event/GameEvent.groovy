@@ -7,10 +7,12 @@ import com.joecowman.crowdsurf.game.model.GameInstance
 abstract class GameEvent {
 
     private boolean hasExecuted = false
+    private List<OutputLine> output
 
     void execute(GameInstance game) {
         hasExecuted = true
         onExecute(game)
+        output = generateOutput() //Ensure output is generated at event runtime
     }
 
     List<OutputLine> getOutput() {
@@ -18,7 +20,7 @@ abstract class GameEvent {
             throw new EventNotYetExecutedException()
         }
 
-        return generateOutput()
+        return output
     }
 
     protected abstract void onExecute(GameInstance game)

@@ -4,7 +4,7 @@ import com.joecowman.crowdsurf.api.model.OutputLine
 import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.LyricScorecard
 
-import static com.joecowman.crowdsurf.game.util.Util.*
+import static com.joecowman.crowdsurf.game.util.StrUtil.*
 
 class ScoreLineEvent extends GameEvent {
     int rhymeMod = 3
