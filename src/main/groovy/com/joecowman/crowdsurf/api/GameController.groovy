@@ -1,6 +1,7 @@
 package com.joecowman.crowdsurf.api
 
 import com.joecowman.crowdsurf.accessor.DatamuseClient
+import com.joecowman.crowdsurf.accessor.FileReader
 import com.joecowman.crowdsurf.api.model.GameInfo
 import com.joecowman.crowdsurf.api.model.GameRequest
 import com.joecowman.crowdsurf.api.model.GameResponse
@@ -11,7 +12,6 @@ import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.GameState
 import com.joecowman.crowdsurf.game.model.LyricLine
 import com.joecowman.crowdsurf.game.model.Song
-import com.joecowman.crowdsurf.game.util.Yikes
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -31,6 +31,7 @@ class GameController {
 
     @GetMapping("/info")
     ResponseEntity info() {
+        System.out.println(FileReader.getRandomTopics(3))
         GameInfo info = new GameInfo(
                 title: "Crowdsurf",
                 author: "Joe Cowman",
