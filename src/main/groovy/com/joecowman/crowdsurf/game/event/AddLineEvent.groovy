@@ -16,14 +16,19 @@ class AddLineEvent extends GameEvent {
         Song song = game.state.currentSong
 
         boolean isFirst = (song.lyrics.size() == 0)
-        int rhymeLine = 0
+
         boolean isRhyme = false
+        int rhymeLine = 0
+        int rhymeRepeats = 0
 
         if (!isFirst) {
             rhymeLine = RhymeUtil.recentRhyme(newLine, song)
 
             if (rhymeLine >= 0) {
                 isRhyme = true
+                String lastWord = newLine.words.last()
+                rhymeRepeats = song.rhymes.count(lastWord)
+                song.rhymes.add(lastWord)
             }
         }
 
@@ -35,6 +40,7 @@ class AddLineEvent extends GameEvent {
                 isFirst: isFirst,
                 isRhyme: isRhyme,
                 rhymeLine: rhymeLine,
+                rhymeRepeats: rhymeRepeats,
                 contextScore: contextScore
         )
         game.doNext(new ScoreLineEvent(scorecard: scorecard))
