@@ -20,4 +20,8 @@ class OutputLine {
     static OutputLine debug(String text) {
         return new OutputLine(text, OutputLineType.DEBUG)
     }
+
+    static OutputLine error(String text) {
+        return new OutputLine(text, OutputLineType.ERROR)
+    }
 }

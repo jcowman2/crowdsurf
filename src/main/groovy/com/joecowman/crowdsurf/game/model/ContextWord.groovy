@@ -2,7 +2,7 @@ package com.joecowman.crowdsurf.game.model
 
 class ContextWord {
     String word
-    List<String> topicWords
+    List<String> topicWords = new ArrayList<>()
 
     ContextWord() {}
 
