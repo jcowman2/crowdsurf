@@ -1,6 +1,8 @@
 package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.model.GameInstance
+import com.joecowman.crowdsurf.game.model.LyricScorecard
 import com.joecowman.crowdsurf.game.util.RhymeUtil
 import com.joecowman.crowdsurf.game.model.LyricLine
 import com.joecowman.crowdsurf.game.model.Song
@@ -8,48 +10,44 @@ import com.joecowman.crowdsurf.game.util.SimilarUtil
 
 class AddLineEvent extends GameEvent {
     LyricLine newLine
-    Song song
 
-    private boolean isFirst
-    private boolean isRhyme
-    private int rhymeLine
-    private int contextScore
+    @Override
+    protected void onExecute(GameInstance game) {
+        Song song = game.state.currentSong
 
-    void execute() {
-        super.execute()
+        boolean isFirst = (song.lyrics.size() == 0)
 
-        if (song.lyrics.size() == 0) {
-            isFirst = true
-        } else {
+        boolean isRhyme = false
+        int rhymeLine = 0
+        int rhymeRepeats = 0
+
+        if (!isFirst) {
             rhymeLine = RhymeUtil.recentRhyme(newLine, song)
 
             if (rhymeLine >= 0) {
                 isRhyme = true
+                String lastWord = newLine.words.last()
+                rhymeRepeats = song.rhymes.count(lastWord)
+                song.rhymes.add(lastWord)
             }
         }
 
-        contextScore = SimilarUtil.testSimilar(newLine, song.contextWords)
+        int contextScore = SimilarUtil.testSimilar(newLine, song.contextWords)
 
         song.lyrics.add(newLine)
+
+        LyricScorecard scorecard = new LyricScorecard(
+                isFirst: isFirst,
+                isRhyme: isRhyme,
+                rhymeLine: rhymeLine,
+                rhymeRepeats: rhymeRepeats,
+                contextScore: contextScore
+        )
+        game.doNext(new ScoreLineEvent(scorecard: scorecard))
     }
 
-    List<OutputLine> getOutput() {
-        super.getOutput()
-
-        List<OutputLine> output = []
-
-        output << new OutputLine("You sing \"$newLine.text\".")
-
-        if (!isFirst) {
-            if (isRhyme) {
-                output << new OutputLine("That rhymed with line $rhymeLine!")
-            } else {
-                output << new OutputLine("That didn't rhyme.")
-            }
-        }
-
-        output << new OutputLine("That line had a score of $contextScore.")
-
-        return output
+    @Override
+    protected List<OutputLine> generateOutput() {
+        return [OutputLine.normal("You sing \"$newLine.text\".")]
     }
 }

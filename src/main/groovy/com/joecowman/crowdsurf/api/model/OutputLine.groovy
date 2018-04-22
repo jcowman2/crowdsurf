@@ -4,10 +4,20 @@ class OutputLine {
     String text
     OutputLineType type
 
-    OutputLine() {}
-
     OutputLine(String text) {
+        this(text, OutputLineType.NORMAL)
+    }
+
+    OutputLine(String text, OutputLineType type) {
         this.text = text
-        type = OutputLineType.NORMAL
+        this.type = type
+    }
+
+    static OutputLine normal(String text) {
+        return new OutputLine(text)
+    }
+
+    static OutputLine debug(String text) {
+        return new OutputLine(text, OutputLineType.DEBUG)
     }
 }

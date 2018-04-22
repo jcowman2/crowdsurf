@@ -23,8 +23,9 @@ class SimilarUtil {
         List<String> tests = (line.words + line.bigrams).unique()
 
 
-        keywords.each { word ->
-            List<String> similars = datamuseClient.similar(word.word, word.topicString, SIMILAR_REQUEST_LENGTH).collect{it.word}
+        keywords.each { keyWord ->
+            Set<String> similars = datamuseClient.similar(keyWord.word, keyWord.topicString, SIMILAR_REQUEST_LENGTH).collect{it.word}
+            similars.add(keyWord.word)
             matches += similars.intersect(tests).size()
         }
 
