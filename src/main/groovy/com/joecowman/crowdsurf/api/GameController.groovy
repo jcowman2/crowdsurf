@@ -1,36 +1,20 @@
 package com.joecowman.crowdsurf.api
 
-import com.joecowman.crowdsurf.accessor.DatamuseClient
-import com.joecowman.crowdsurf.accessor.FileAccessor
 import com.joecowman.crowdsurf.api.model.GameInfo
 import com.joecowman.crowdsurf.api.model.GameRequest
 import com.joecowman.crowdsurf.api.model.GameResponse
-import com.joecowman.crowdsurf.game.event.AddLineEvent
-import com.joecowman.crowdsurf.game.model.ContextWord
+import com.joecowman.crowdsurf.game.CommandParser
 import com.joecowman.crowdsurf.game.model.GameInstance
-import com.joecowman.crowdsurf.game.model.GameState
-import com.joecowman.crowdsurf.game.model.LyricLine
-import com.joecowman.crowdsurf.game.model.Song
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @CrossOrigin
 @RestController
 @RequestMapping("crowdsurf/api")
 class GameController {
 
-    @Autowired
-    DatamuseClient datamuseClient
-
     @GetMapping("/info")
     ResponseEntity info() {
-        System.out.println(FileAccessor.getRandomTopics(3))
         GameInfo info = new GameInfo(
                 title: "Crowdsurf",
                 author: "Joe Cowman",
@@ -44,19 +28,7 @@ class GameController {
 
     @PostMapping("/play")
     ResponseEntity play(@RequestBody GameRequest gameIn) {
-        String command = gameIn.command
-        GameState state = gameIn.state
-
-        if (!state) {
-            state = new GameState()
-            state.currentSong = new Song()
-            state.currentSong.contextWords.add(new ContextWord('dog', ['animal']))
-        }
-        state.commandNumber++
-
-        GameInstance game = new GameInstance(state)
-        AddLineEvent cmd = new AddLineEvent(newLine: new LyricLine(text: command))
-        game.doNext(cmd)
+        GameInstance game = CommandParser.parse(gameIn.command, gameIn.state)
         game.run()
 
         GameResponse response = new GameResponse(

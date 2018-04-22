@@ -4,6 +4,8 @@ class ContextWord {
     String word
     List<String> topicWords
 
+    ContextWord() {}
+
     ContextWord(String word) {
         this.word = word
     }
