@@ -11,6 +11,7 @@ import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.GameState
 import com.joecowman.crowdsurf.game.model.LyricLine
 import com.joecowman.crowdsurf.game.model.Song
+import com.joecowman.crowdsurf.game.util.Yikes
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -35,6 +36,7 @@ class GameController {
 
     @GetMapping("/info")
     ResponseEntity info() {
+        Yikes.wew()
         GameInfo info = new GameInfo(
                 title: "Crowdsurf",
                 author: "Joe Cowman",
