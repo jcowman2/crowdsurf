@@ -29,11 +29,6 @@ class GameController {
     @Autowired
     DatamuseClient datamuseClient
 
-    @PostMapping("/similar") //todo remove
-    ResponseEntity rate(@RequestBody String lyric) {
-        return ResponseEntity.ok(datamuseClient.similarMeaningMetadata(lyric))
-    }
-
     @GetMapping("/info")
     ResponseEntity info() {
         GameInfo info = new GameInfo(
