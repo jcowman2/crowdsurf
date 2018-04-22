@@ -36,7 +36,6 @@ class GameController {
 
     @GetMapping("/info")
     ResponseEntity info() {
-        Yikes.wew()
         GameInfo info = new GameInfo(
                 title: "Crowdsurf",
                 author: "Joe Cowman",
