@@ -4,7 +4,8 @@ import com.joecowman.crowdsurf.api.model.OutputLine
 import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.LyricScorecard
 
-import static com.joecowman.crowdsurf.game.util.Util.*
+import static com.joecowman.crowdsurf.game.util.StrUtil.pl
+import static com.joecowman.crowdsurf.game.util.StrUtil.signed
 
 class ScoreLineEvent extends GameEvent {
     int rhymeMod = 3
@@ -34,7 +35,7 @@ class ScoreLineEvent extends GameEvent {
     protected List<OutputLine> generateOutput() {
         List<OutputLine> output = []
 
-        output << OutputLine.debug("That line had $scorecard.contextScore keyword${pl(scorecard.contextScore)}. (${signed(ctxScore)})")
+        output << OutputLine.debug("That line had $scorecard.contextScore keyword match${pl(scorecard.contextScore, 'es')}. (${signed(ctxScore)})")
 
         if (!scorecard.isFirst) {
             if (scorecard.isRhyme) {

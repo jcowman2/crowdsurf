@@ -2,14 +2,18 @@ package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
 import com.joecowman.crowdsurf.game.model.GameInstance
-import com.joecowman.crowdsurf.game.model.LyricScorecard
-import com.joecowman.crowdsurf.game.util.RhymeUtil
 import com.joecowman.crowdsurf.game.model.LyricLine
+import com.joecowman.crowdsurf.game.model.LyricScorecard
 import com.joecowman.crowdsurf.game.model.Song
+import com.joecowman.crowdsurf.game.util.RhymeUtil
 import com.joecowman.crowdsurf.game.util.SimilarUtil
 
 class AddLineEvent extends GameEvent {
     LyricLine newLine
+
+    AddLineEvent(LyricLine line) {
+        newLine = line
+    }
 
     @Override
     protected void onExecute(GameInstance game) {
