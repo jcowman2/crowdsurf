@@ -2,6 +2,7 @@ package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.accessor.FileAccessor
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.Constants
 import com.joecowman.crowdsurf.game.model.ContextWord
 import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.Song
@@ -22,10 +23,12 @@ class NewSongEvent extends GameEvent {
 
         game.state.currentSong = song
         game.state.resetTimestamp()
+        String filename = game.state.songs[game.state.songNumber]
         game.state.songNumber++
 
         crowdHype = game.state.crowdHype
         game.doNext(new SongDurationEvent())
+        game.enqueue(new ClientActionRequiredEvent(action: Constants.START_SONG, args: ['filename' : filename ]))
     }
 
     @Override
