@@ -6,10 +6,11 @@ import com.joecowman.crowdsurf.game.model.ContextWord
 import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.Song
 
-import static com.joecowman.crowdsurf.game.util.StrUtil.addArticle
+import static com.joecowman.crowdsurf.game.util.StrUtil.formatTopics
 
 class NewSongEvent extends GameEvent {
     int numTopics = 3
+    int songDuration = 60
 
     private Song song
     private int crowdHype
@@ -17,10 +18,14 @@ class NewSongEvent extends GameEvent {
     @Override
     protected void onExecute(GameInstance game) {
         List<ContextWord> topics = FileAccessor.getRandomTopics(numTopics).collect { new ContextWord(it) }
-        song = new Song(contextWords: topics)
+        song = new Song(contextWords: topics, duration: songDuration)
+
         game.state.currentSong = song
+        game.state.resetTimestamp()
+        game.state.songNumber++
 
         crowdHype = game.state.crowdHype
+        game.doNext(new SongDurationEvent())
     }
 
     @Override
@@ -32,19 +37,5 @@ class NewSongEvent extends GameEvent {
         output << OutputLine.normal("Crowd hype is at $crowdHype%. Better make up something quick!")
     }
 
-    private String formatTopics(List<ContextWord> topics) {
-        StringBuilder sb = new StringBuilder()
-        int lastIdx = topics.size() - 1
 
-        topics.eachWithIndex{ ContextWord topic, int i ->
-            String word = addArticle(topic.word)
-            if (i != lastIdx) {
-                sb.append(word).append(", ")
-            } else {
-                sb.append("and ").append(word)
-            }
-        }
-
-        return sb.toString()
-    }
 }

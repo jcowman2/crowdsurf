@@ -33,7 +33,7 @@ class ScoreLineEvent extends GameEvent {
 
         if (scorecard.isRhyme) {
             rhymeScore = (scorecard.rhymeRepeats > 0) ? -scorecard.rhymeRepeats : rhymeMod
-        } else {
+        } else if (!scorecard.isFirst) {
             rhymeScore = -rhymeMod
         }
 
