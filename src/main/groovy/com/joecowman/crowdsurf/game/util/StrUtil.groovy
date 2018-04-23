@@ -2,7 +2,7 @@ package com.joecowman.crowdsurf.game.util
 
 class StrUtil {
 
-    static List<Character> vowels = ['a', 'e', 'i', 'o', 'u']
+    static List<String> vowels = ['a', 'e', 'i', 'o', 'u']
 
     //Adds s if value not 1
     static String pl(int i) {
@@ -16,7 +16,7 @@ class StrUtil {
 
     //Adds the appropriate 'a' or 'an' to a word
     static String addArticle(String word) {
-        boolean startsWithVowel = vowels.contains(word.charAt(0))
+        boolean startsWithVowel = vowels.contains(word.charAt(0).toString())
         String article = startsWithVowel ? 'an' : 'a'
         return "$article $word"
     }

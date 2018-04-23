@@ -26,7 +26,7 @@ class NewSongEvent extends GameEvent {
 
         output << OutputLine.normal("The band starts to play a song, but you can't remember the lyrics.")
         output << OutputLine.normal("You think it has something to do with ${formatTopics(song.contextWords)}.")
-        output << OutputLine.normal("Better make something up quick!")
+        output << OutputLine.normal("Better make up something quick!")
     }
 
     private String formatTopics(List<ContextWord> topics) {
