@@ -24,4 +24,8 @@ class OutputLine {
     static OutputLine error(String text) {
         return new OutputLine(text, OutputLineType.ERROR)
     }
+
+    static OutputLine empty() {
+        return new OutputLine("", OutputLineType.EMPTY)
+    }
 }

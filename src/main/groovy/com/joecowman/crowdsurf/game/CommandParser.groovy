@@ -21,7 +21,10 @@ class CommandParser {
         } else {
             state.commandNumber++
 
-            if (state.currentSong) {
+            if (command.isAllWhitespace()) {
+                event = new IllegalCommandEvent("Please enter a command.")
+
+            } else if (state.currentSong) {
 
                 if (command.startsWith("*stop")) {
                     event = new SongEndEvent("You cut the band off. They stop playing and glare at you.")
@@ -37,6 +40,8 @@ class CommandParser {
 
             } else if (command.startsWith("next")) {
                 event = new NewSongEvent()
+            } else if (command == Constants.SONG_DURATION_OVER) {
+                event = new NoActionEvent() //Delayed song over automated event
             } else {
                 event = new IllegalCommandEvent("You can't do that now! Type \"next\" to play the next song.")
             }
