@@ -34,6 +34,8 @@ class ScoreLineEvent extends GameEvent {
         lyricPoints = ctxScore + rhymeScore + duplicatesScore
         game.state.score += lyricPoints
         totalScore = game.state.score
+
+        game.doNext(new CrowdReactToLineEvent(lineScore: lyricPoints))
     }
 
     @Override
