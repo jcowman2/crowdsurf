@@ -32,18 +32,28 @@ class SongDurationEvent extends GameEvent {
             secondsRemaining = 0
             game.doNext(new SongEndEvent())
         } else {
-            int thisTimeoutInterval = Math.min(timeoutInterval, secondsRemaining)
+            int thisTimeoutInterval
+            String command
+
+            if (timeoutInterval >= secondsRemaining) {
+                thisTimeoutInterval = secondsRemaining
+                command = Constants.SONG_DURATION_OVER
+            } else {
+                thisTimeoutInterval = timeoutInterval
+                command = Constants.SONG_TIMEOUT_COMMAND
+            }
+
             game.responseRequirements.with {
                 it.autoCallbackAfterTimeout = true
                 it.timeoutSeconds = thisTimeoutInterval
-                it.timeoutCommand = Constants.SONG_TIMEOUT_COMMAND
+                it.timeoutCommand = command
             }
         }
     }
 
     @Override
     protected List<OutputLine> generateOutput() {
-        return [OutputLine.debug("$secondsRemaining second${pl(secondsRemaining)} remain.")]
+        return [OutputLine.debug("$secondsRemaining second${pl(secondsRemaining)} remain${pl(secondsRemaining, '', 's')}.")]
     }
 
 }

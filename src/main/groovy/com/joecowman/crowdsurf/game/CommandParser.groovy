@@ -29,7 +29,9 @@ class CommandParser {
                     event = new PrintKeywordsEvent()
                 } else if (command == Constants.SONG_TIMEOUT_COMMAND) {
                     event = new LyricTimeoutEvent()
-                } else{
+                } else if (command == Constants.SONG_DURATION_OVER) {
+                    event = new SongEndEvent()
+                } else {
                     event = new AddLineEvent(new LyricLine(text: command))
                 }
 
