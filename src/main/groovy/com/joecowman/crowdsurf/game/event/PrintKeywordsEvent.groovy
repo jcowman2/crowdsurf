@@ -17,7 +17,7 @@ class PrintKeywordsEvent extends GameEvent {
 
     @Override
     protected List<OutputLine> generateOutput() {
-        return [OutputLine.normal("You're trying to sing lyrics about $keywords.")]
+        return [OutputLine.normal("You're trying to sing lyrics related to the words $keywords")]
     }
 
 }

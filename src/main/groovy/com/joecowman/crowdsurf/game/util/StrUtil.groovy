@@ -29,11 +29,12 @@ class StrUtil {
         int lastIdx = topics.size() - 1
 
         topics.eachWithIndex{ ContextWord topic, int i ->
-            String word = addArticle(topic.word)
+            String word = "\"$topic.word"
+
             if (i != lastIdx) {
-                sb.append(word).append(", ")
+                sb.append(word).append(",\" ")
             } else {
-                sb.append("and ").append(word)
+                sb.append("and ").append(word).append(".\"")
             }
         }
 
