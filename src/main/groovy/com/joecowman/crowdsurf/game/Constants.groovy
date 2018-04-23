@@ -6,5 +6,5 @@ class Constants {
     static final String POST_SONG_NAMES = "~song_names"
 
     static final String START_SONG = "@start_song"
-    static final String STOP_SONG = "@end_song"
+    static final String STOP_SONG = "@stop_song"
 }

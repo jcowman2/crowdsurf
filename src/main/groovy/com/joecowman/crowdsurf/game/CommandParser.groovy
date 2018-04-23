@@ -44,7 +44,7 @@ class CommandParser {
 
             } else if (command.startsWith("next")) {
                 event = new NewSongEvent()
-            } else if (command == Constants.SONG_DURATION_OVER) {
+            } else if (command == Constants.SONG_DURATION_OVER || command == Constants.SONG_TIMEOUT_COMMAND) {
                 event = new NoActionEvent() //Delayed song over automated event
             } else {
                 event = new IllegalCommandEvent("You can't do that now! Type \"next\" to play the next song.")

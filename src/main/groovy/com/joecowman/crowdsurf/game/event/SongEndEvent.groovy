@@ -1,6 +1,7 @@
 package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.Constants
 import com.joecowman.crowdsurf.game.model.GameInstance
 
 class SongEndEvent extends GameEvent {
@@ -16,6 +17,9 @@ class SongEndEvent extends GameEvent {
     protected void onExecute(GameInstance game) {
         game.state.currentSong = null
         songNumber = game.state.songNumber
+
+        String filename = game.state.songs[game.state.songNumber - 1]
+        game.enqueue(new ClientActionRequiredEvent(action: Constants.STOP_SONG, args: ['filename': filename ]))
     }
 
     @Override
@@ -23,7 +27,7 @@ class SongEndEvent extends GameEvent {
         List<OutputLine> output = []
 
         if (!reason) {
-            reason = "That's the end of song $songNumber!"
+            reason = "That's the end of song #$songNumber!"
         }
 
         output << OutputLine.normal(reason)

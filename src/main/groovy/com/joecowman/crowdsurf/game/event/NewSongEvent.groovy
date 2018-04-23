@@ -40,5 +40,4 @@ class NewSongEvent extends GameEvent {
         output << OutputLine.normal("Crowd hype is at $crowdHype%. Better make up something quick!")
     }
 
-
 }
