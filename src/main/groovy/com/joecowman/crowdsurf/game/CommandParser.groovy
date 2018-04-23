@@ -27,7 +27,9 @@ class CommandParser {
                     event = new SongEndEvent("You cut the band off. They stop playing and glare at you.")
                 } else if (command.startsWith("*key")) {
                     event = new PrintKeywordsEvent()
-                } else {
+                } else if (command == Constants.SONG_TIMEOUT_COMMAND) {
+                    event = new LyricTimeoutEvent()
+                } else{
                     event = new AddLineEvent(new LyricLine(text: command))
                 }
 
