@@ -12,12 +12,15 @@ class NewSongEvent extends GameEvent {
     int numTopics = 3
 
     private Song song
+    private int crowdHype
 
     @Override
     protected void onExecute(GameInstance game) {
         List<ContextWord> topics = FileAccessor.getRandomTopics(numTopics).collect { new ContextWord(it) }
         song = new Song(contextWords: topics)
         game.state.currentSong = song
+
+        crowdHype = game.state.crowdHype
     }
 
     @Override
@@ -26,7 +29,7 @@ class NewSongEvent extends GameEvent {
 
         output << OutputLine.normal("The band starts to play a song, but you can't remember the lyrics.")
         output << OutputLine.normal("You think it has something to do with ${formatTopics(song.contextWords)}.")
-        output << OutputLine.normal("Better make up something quick!")
+        output << OutputLine.normal("Crowd hype is at $crowdHype%. Better make up something quick!")
     }
 
     private String formatTopics(List<ContextWord> topics) {

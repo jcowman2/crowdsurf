@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component
 class SimilarUtil {
 
     static int SIMILAR_REQUEST_LENGTH = 1000
+    static List<String> excludedWords = ["this", "and", "my", "a", "an", "was", "were", "but", "the"]
 
     private static DatamuseClient datamuseClient
 
@@ -22,6 +23,7 @@ class SimilarUtil {
     static SimilarityResult testSimilar(LyricLine line, List<ContextWord> keywords) {
         int matches = 0
         List<String> tests = (line.words + line.bigrams).unique()
+        tests.removeAll(excludedWords)
         Set<String> matchingKeywords = new HashSet<>()
 
 
