@@ -23,12 +23,18 @@ class ScoreLineEvent extends GameEvent {
 
     @Override
     protected void onExecute(GameInstance game) {
-        ctxScore = scorecard.contextScore * contextMod
+        if (scorecard.contextScore == 0) {
+            ctxScore = -contextMod
+        } else {
+            ctxScore = scorecard.contextScore * contextMod
+        }
 
         duplicatesScore = -(scorecard.duplicates * duplicatesMod)
 
         if (scorecard.isRhyme) {
             rhymeScore = (scorecard.rhymeRepeats > 0) ? -scorecard.rhymeRepeats : rhymeMod
+        } else {
+            rhymeScore = -rhymeMod
         }
 
         lyricPoints = ctxScore + rhymeScore + duplicatesScore
@@ -56,7 +62,7 @@ class ScoreLineEvent extends GameEvent {
                     output << OutputLine.debug("That rhymed with line $scorecard.rhymeLine! (${signed(rhymeScore)})")
                 }
             } else {
-                output << OutputLine.debug("That didn't rhyme. (+0)")
+                output << OutputLine.debug("That didn't rhyme. (${signed(rhymeScore)})")
             }
         }
 
