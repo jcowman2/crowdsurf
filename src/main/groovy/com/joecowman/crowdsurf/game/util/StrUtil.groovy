@@ -4,9 +4,9 @@ class StrUtil {
 
     static List<String> vowels = ['a', 'e', 'i', 'o', 'u']
 
-    //Adds s if value not 1
-    static String pl(int i) {
-        return (i == 1) ? '' : 's'
+    //Adds suffix if value not 1
+    static String pl(int i, String suffix = 's') {
+        return (i == 1) ? '' : suffix
     }
 
     //Returns number with positive sign if positive (zero is positive)
