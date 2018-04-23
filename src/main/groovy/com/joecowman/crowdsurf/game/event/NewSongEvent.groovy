@@ -10,7 +10,7 @@ import static com.joecowman.crowdsurf.game.util.StrUtil.formatTopics
 
 class NewSongEvent extends GameEvent {
     int numTopics = 3
-    int songDuration = 60
+    int songDuration = 20
 
     private Song song
     private int crowdHype
@@ -33,7 +33,7 @@ class NewSongEvent extends GameEvent {
         List<OutputLine> output = []
 
         output << OutputLine.normal("The band starts to play a song, but you can't remember the lyrics.")
-        output << OutputLine.normal("You think it has something to do with ${formatTopics(song.contextWords)}.")
+        output << OutputLine.normal("You think it has something to do with the words ${formatTopics(song.contextWords)}")
         output << OutputLine.normal("Crowd hype is at $crowdHype%. Better make up something quick!")
     }
 

@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.joecowman'
-version = '1.0-SNAPSHOT'
+version = '1.0-SNAPSHOT-4'
 sourceCompatibility = 1.8
 
 repositories {

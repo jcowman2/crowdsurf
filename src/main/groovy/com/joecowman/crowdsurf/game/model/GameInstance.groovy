@@ -1,6 +1,7 @@
 package com.joecowman.crowdsurf.game.model
 
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.api.model.ResponseRequirements
 import com.joecowman.crowdsurf.game.event.GameEvent
 
 class GameInstance {
@@ -9,6 +10,7 @@ class GameInstance {
     private List<OutputLine> output = []
 
     GameState state
+    ResponseRequirements responseRequirements = new ResponseRequirements()
 
     GameInstance(GameState state) {
         this.state = state
