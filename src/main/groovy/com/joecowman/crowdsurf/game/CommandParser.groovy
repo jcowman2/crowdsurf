@@ -7,23 +7,27 @@ import com.joecowman.crowdsurf.game.model.LyricLine
 
 class CommandParser {
 
-    static GameInstance parse(String command, GameState state) {
+    static GameInstance parse(String command, GameState state, Object payload) {
         GameEvent event
 
+        //Game not yet started
         if (!state) {
             if (command.startsWith("start") || command.startsWith("new") || command.startsWith("play")) {
+                event = new ClientActionRequiredEvent(action: Constants.POST_SONG_NAMES)
+            } else if (command == Constants.POST_SONG_NAMES) {
                 state = new GameState()
-                state.commandNumber++
-                event = new NewSongEvent()
+                event = new NewGameEvent(songOptions: payload as List<String>)
             } else {
                 event = new IllegalCommandEvent("You can't do that yet! Type \"start\" to start the game.")
             }
+        //Current Game
         } else {
             state.commandNumber++
 
             if (command.isAllWhitespace()) {
                 event = new IllegalCommandEvent("Please enter a command.")
 
+            //Song Commands
             } else if (state.currentSong) {
 
                 if (command.startsWith("*stop")) {
