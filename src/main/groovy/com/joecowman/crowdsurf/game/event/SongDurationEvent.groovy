@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 import static com.joecowman.crowdsurf.game.util.StrUtil.pl
 
 class SongDurationEvent extends GameEvent {
-    int timeoutInterval = 20
+    int timeoutInterval = 15
 
     private int secondsPassed
     private int secondsRemaining

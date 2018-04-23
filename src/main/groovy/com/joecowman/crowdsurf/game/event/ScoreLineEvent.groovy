@@ -3,6 +3,7 @@ package com.joecowman.crowdsurf.game.event
 import com.joecowman.crowdsurf.api.model.OutputLine
 import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.LyricScorecard
+import com.joecowman.crowdsurf.game.model.ReactionTrigger
 
 import static com.joecowman.crowdsurf.game.util.StrUtil.pl
 import static com.joecowman.crowdsurf.game.util.StrUtil.signed
@@ -41,7 +42,7 @@ class ScoreLineEvent extends GameEvent {
         game.state.score += lyricPoints
         totalScore = game.state.score
 
-        game.doNext(new CrowdReactToLineEvent(lineScore: lyricPoints))
+        game.doNext(new CrowdReactionEvent(ReactionTrigger.LYRIC_LINE, lyricPoints))
     }
 
     @Override
