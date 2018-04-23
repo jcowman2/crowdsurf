@@ -8,8 +8,6 @@ import com.joecowman.crowdsurf.game.model.GameInstance
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-import java.time.LocalDateTime
-
 @CrossOrigin
 @RestController
 @RequestMapping("crowdsurf/api")
@@ -30,12 +28,8 @@ class GameController {
 
     @PostMapping("/play")
     ResponseEntity play(@RequestBody GameRequest gameIn) {
-        gameIn.state?.thisRequestTimestamp = LocalDateTime.now()
-
         GameInstance game = CommandParser.parse(gameIn.command, gameIn.state)
         game.run()
-
-        game.state.lastRequestTimestamp = LocalDateTime.now()
 
         GameResponse response = new GameResponse(
                 output: game.output,

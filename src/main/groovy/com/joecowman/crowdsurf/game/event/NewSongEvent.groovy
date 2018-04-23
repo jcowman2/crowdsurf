@@ -19,7 +19,9 @@ class NewSongEvent extends GameEvent {
     protected void onExecute(GameInstance game) {
         List<ContextWord> topics = FileAccessor.getRandomTopics(numTopics).collect { new ContextWord(it) }
         song = new Song(contextWords: topics, duration: songDuration)
+
         game.state.currentSong = song
+        game.state.resetTimestamp()
 
         crowdHype = game.state.crowdHype
     }

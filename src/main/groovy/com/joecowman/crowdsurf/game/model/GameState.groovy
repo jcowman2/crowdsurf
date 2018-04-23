@@ -9,6 +9,9 @@ class GameState {
 
     Song currentSong
 
-    LocalDateTime thisRequestTimestamp
     LocalDateTime lastRequestTimestamp
+
+    void resetTimestamp() {
+        lastRequestTimestamp = null
+    }
 }

@@ -1,9 +1,6 @@
 package com.joecowman.crowdsurf.game
 
-import com.joecowman.crowdsurf.game.event.AddLineEvent
-import com.joecowman.crowdsurf.game.event.GameEvent
-import com.joecowman.crowdsurf.game.event.IllegalCommandEvent
-import com.joecowman.crowdsurf.game.event.NewSongEvent
+import com.joecowman.crowdsurf.game.event.*
 import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.GameState
 import com.joecowman.crowdsurf.game.model.LyricLine
@@ -14,7 +11,7 @@ class CommandParser {
         GameEvent event
 
         if (!state) {
-            if (command.startsWith("start") || command.startsWith("new game")) {
+            if (command.startsWith("start") || command.startsWith("new") || command.startsWith("play")) {
                 state = new GameState()
                 state.commandNumber++
                 event = new NewSongEvent()
@@ -28,6 +25,7 @@ class CommandParser {
 
         GameInstance game = new GameInstance(state)
         game.doNext(event)
+        game.enqueue(new SongDurationEvent()) //Will be executed at the end
 
         return game
     }
