@@ -10,7 +10,7 @@ import static com.joecowman.crowdsurf.game.util.StrUtil.addArticle
 
 class NewSongEvent extends GameEvent {
     int numTopics = 3
-    int songDuration = 120
+    int songDuration = 60
 
     private Song song
     private int crowdHype
@@ -22,8 +22,10 @@ class NewSongEvent extends GameEvent {
 
         game.state.currentSong = song
         game.state.resetTimestamp()
+        game.state.songNumber++
 
         crowdHype = game.state.crowdHype
+        game.doNext(new SongDurationEvent())
     }
 
     @Override

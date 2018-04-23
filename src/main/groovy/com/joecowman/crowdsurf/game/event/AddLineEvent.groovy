@@ -47,6 +47,7 @@ class AddLineEvent extends GameEvent {
                 duplicates: duplicates
         )
         game.doNext(new ScoreLineEvent(scorecard: scorecard))
+        game.enqueue(new SongDurationEvent()) //will be executed at the end
     }
 
     @Override

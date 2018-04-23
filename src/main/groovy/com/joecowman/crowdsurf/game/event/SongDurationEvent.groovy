@@ -22,9 +22,14 @@ class SongDurationEvent extends GameEvent {
             game.state.currentSong.timeRemaining -= secondsPassed
         }
 
+        game.state.lastRequestTimestamp = now
+
         secondsRemaining = game.state.currentSong.timeRemaining
 
-        game.state.lastRequestTimestamp = now
+        if (secondsRemaining <= 0) {
+            secondsRemaining = 0
+            game.doNext(new SongEndEvent())
+        }
     }
 
     @Override
