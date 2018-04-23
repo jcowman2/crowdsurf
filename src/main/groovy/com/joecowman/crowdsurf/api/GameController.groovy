@@ -33,6 +33,7 @@ class GameController {
 
         GameResponse response = new GameResponse(
                 output: game.output,
+                requirements: game.responseRequirements,
                 state: game.state
         )
 
