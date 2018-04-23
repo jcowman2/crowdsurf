@@ -1,10 +1,7 @@
 package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.api.model.OutputLine
-import com.joecowman.crowdsurf.game.model.GameInstance
-import com.joecowman.crowdsurf.game.model.LyricLine
-import com.joecowman.crowdsurf.game.model.LyricScorecard
-import com.joecowman.crowdsurf.game.model.Song
+import com.joecowman.crowdsurf.game.model.*
 import com.joecowman.crowdsurf.game.util.RhymeUtil
 import com.joecowman.crowdsurf.game.util.SimilarUtil
 
@@ -36,16 +33,18 @@ class AddLineEvent extends GameEvent {
             }
         }
 
-        int contextScore = SimilarUtil.testSimilar(newLine, song.contextWords)
+        SimilarityResult simRes = SimilarUtil.testSimilar(newLine, song.contextWords)
 
         song.lyrics.add(newLine)
+        int duplicates =  song.duplicateKeywords(simRes.matchingKeywords)
 
         LyricScorecard scorecard = new LyricScorecard(
                 isFirst: isFirst,
                 isRhyme: isRhyme,
                 rhymeLine: rhymeLine,
                 rhymeRepeats: rhymeRepeats,
-                contextScore: contextScore
+                contextScore: simRes.numMatches,
+                duplicates: duplicates
         )
         game.doNext(new ScoreLineEvent(scorecard: scorecard))
     }
