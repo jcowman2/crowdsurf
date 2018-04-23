@@ -10,6 +10,7 @@ import static com.joecowman.crowdsurf.game.util.StrUtil.addArticle
 
 class NewSongEvent extends GameEvent {
     int numTopics = 3
+    int songDuration = 120
 
     private Song song
     private int crowdHype
@@ -17,7 +18,7 @@ class NewSongEvent extends GameEvent {
     @Override
     protected void onExecute(GameInstance game) {
         List<ContextWord> topics = FileAccessor.getRandomTopics(numTopics).collect { new ContextWord(it) }
-        song = new Song(contextWords: topics)
+        song = new Song(contextWords: topics, duration: songDuration)
         game.state.currentSong = song
 
         crowdHype = game.state.crowdHype
