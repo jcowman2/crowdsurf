@@ -28,7 +28,7 @@ class GameController {
 
     @PostMapping("/play")
     ResponseEntity play(@RequestBody GameRequest gameIn) {
-        GameInstance game = CommandParser.parse(gameIn.command, gameIn.state)
+        GameInstance game = CommandParser.parse(gameIn.command, gameIn.state, gameIn.payload)
         game.run()
 
         GameResponse response = new GameResponse(

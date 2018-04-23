@@ -2,6 +2,7 @@ package com.joecowman.crowdsurf.game.event
 
 import com.joecowman.crowdsurf.accessor.FileAccessor
 import com.joecowman.crowdsurf.api.model.OutputLine
+import com.joecowman.crowdsurf.game.Constants
 import com.joecowman.crowdsurf.game.model.ContextWord
 import com.joecowman.crowdsurf.game.model.GameInstance
 import com.joecowman.crowdsurf.game.model.Song
@@ -10,7 +11,7 @@ import static com.joecowman.crowdsurf.game.util.StrUtil.formatTopics
 
 class NewSongEvent extends GameEvent {
     int numTopics = 3
-    int songDuration = 20
+    int songDuration = 90
 
     private Song song
     private int crowdHype
@@ -22,10 +23,12 @@ class NewSongEvent extends GameEvent {
 
         game.state.currentSong = song
         game.state.resetTimestamp()
+        String filename = game.state.songs[game.state.songNumber]
         game.state.songNumber++
 
         crowdHype = game.state.crowdHype
         game.doNext(new SongDurationEvent())
+        game.enqueue(new ClientActionRequiredEvent(action: Constants.START_SONG, args: ['filename' : filename ]))
     }
 
     @Override
@@ -36,6 +39,5 @@ class NewSongEvent extends GameEvent {
         output << OutputLine.normal("You think it has something to do with the words ${formatTopics(song.contextWords)}")
         output << OutputLine.normal("Crowd hype is at $crowdHype%. Better make up something quick!")
     }
-
 
 }
