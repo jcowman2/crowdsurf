@@ -10,7 +10,7 @@ import static com.joecowman.crowdsurf.game.util.StrUtil.formatTopics
 
 class NewSongEvent extends GameEvent {
     int numTopics = 3
-    int songDuration = 20
+    int songDuration = 90
 
     private Song song
     private int crowdHype
