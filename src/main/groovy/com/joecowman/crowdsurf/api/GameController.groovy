@@ -18,7 +18,7 @@ class GameController {
         GameInfo info = new GameInfo(
                 title: "Crowdsurf",
                 author: "Joe Cowman",
-                version: "1.0 (SNAPSHOT 3)",
+                version: "1.0 (SNAPSHOT 4)",
                 website: "http://joecowman.com",
                 description: "Under development for Ludum Dare 41."
         )
