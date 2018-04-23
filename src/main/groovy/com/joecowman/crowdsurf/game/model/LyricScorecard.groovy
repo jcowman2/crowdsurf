@@ -6,4 +6,5 @@ class LyricScorecard {
     int rhymeLine
     int rhymeRepeats
     int contextScore
+    int duplicates
 }

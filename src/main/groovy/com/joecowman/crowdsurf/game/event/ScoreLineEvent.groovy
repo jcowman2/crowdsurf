@@ -8,11 +8,14 @@ import static com.joecowman.crowdsurf.game.util.StrUtil.pl
 import static com.joecowman.crowdsurf.game.util.StrUtil.signed
 
 class ScoreLineEvent extends GameEvent {
-    int rhymeMod = 3
     int contextMod = 2
+    int rhymeMod = 3
+    int duplicatesMod = 2
+
     LyricScorecard scorecard
 
     private int ctxScore
+    private int duplicatesScore
     private int rhymeScore
 
     private int lyricPoints
@@ -22,11 +25,13 @@ class ScoreLineEvent extends GameEvent {
     protected void onExecute(GameInstance game) {
         ctxScore = scorecard.contextScore * contextMod
 
+        duplicatesScore = -(scorecard.duplicates * duplicatesMod)
+
         if (scorecard.isRhyme) {
             rhymeScore = (scorecard.rhymeRepeats > 0) ? -scorecard.rhymeRepeats : rhymeMod
         }
 
-        lyricPoints = ctxScore + rhymeScore
+        lyricPoints = ctxScore + rhymeScore + duplicatesScore
         game.state.score += lyricPoints
         totalScore = game.state.score
     }
@@ -36,6 +41,10 @@ class ScoreLineEvent extends GameEvent {
         List<OutputLine> output = []
 
         output << OutputLine.debug("That line had $scorecard.contextScore keyword match${pl(scorecard.contextScore, 'es')}. (${signed(ctxScore)})")
+
+        if (duplicatesScore < 0) {
+            output << OutputLine.debug("However, you just repeated yourself $scorecard.duplicates time${pl(scorecard.duplicates)}! ($duplicatesScore)")
+        }
 
         if (!scorecard.isFirst) {
             if (scorecard.isRhyme) {
