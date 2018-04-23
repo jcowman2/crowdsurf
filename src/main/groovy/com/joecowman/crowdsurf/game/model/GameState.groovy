@@ -8,9 +8,10 @@ class GameState {
     int songNumber = 0
     int crowdHype = 50
 
-    List<String> songs = []
+    String bandName
 
     Song currentSong
+    List<String> songs = []
 
     LocalDateTime lastRequestTimestamp
 

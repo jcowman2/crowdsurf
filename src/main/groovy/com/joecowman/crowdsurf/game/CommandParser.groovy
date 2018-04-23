@@ -45,7 +45,7 @@ class CommandParser {
                         event = new AddLineEvent(new LyricLine(text: command))
                     }
 
-                } else if (command.startsWith("next")) {
+                } else if (command.startsWith("next") || command.startsWith("start")) {
                     event = new NewSongEvent()
                 } else if (command == Constants.SONG_DURATION_OVER || command == Constants.SONG_TIMEOUT_COMMAND) {
                     event = new NoActionEvent() //Delayed song over automated event
