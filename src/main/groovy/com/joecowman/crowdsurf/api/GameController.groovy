@@ -18,9 +18,9 @@ class GameController {
         GameInfo info = new GameInfo(
                 title: "Crowdsurf",
                 author: "Joe Cowman",
-                version: "1.0 (SNAPSHOT)",
+                version: "1.0 (SNAPSHOT 3)",
                 website: "http://joecowman.com",
-                description: "Created in 72 hours for Ludum Dare 41."
+                description: "Under development for Ludum Dare 41."
         )
 
         return ResponseEntity.ok(info)
