@@ -39,6 +39,7 @@ class AddLineEvent extends GameEvent {
         int duplicates =  song.duplicateKeywords(simRes.matchingKeywords)
 
         LyricScorecard scorecard = new LyricScorecard(
+                line: newLine.text,
                 isFirst: isFirst,
                 isRhyme: isRhyme,
                 rhymeLine: rhymeLine,

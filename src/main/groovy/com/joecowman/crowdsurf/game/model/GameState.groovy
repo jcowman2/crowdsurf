@@ -8,13 +8,29 @@ class GameState {
     int songNumber = 0
     int crowdHype = 50
 
-    List<String> songs = []
+    String bandName
 
     Song currentSong
+    List<String> songs = []
+
+    String bestScoringLine = "(nothing)"
+    int bestLineScore = -100
+    String worstScoringLine = "(nothing)"
+    int worstLineScore = 100
 
     LocalDateTime lastRequestTimestamp
 
     void resetTimestamp() {
         lastRequestTimestamp = null
+    }
+
+    void compareLine(String line, int score) {
+        if (score > bestLineScore) {
+            bestScoringLine = line
+            bestLineScore = score
+        } else if (score < worstLineScore) {
+            worstScoringLine = line
+            worstLineScore = score
+        }
     }
 }

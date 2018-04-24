@@ -42,6 +42,8 @@ class ScoreLineEvent extends GameEvent {
         game.state.score += lyricPoints
         totalScore = game.state.score
 
+        game.state.compareLine(scorecard.line, lyricPoints)
+
         game.doNext(new CrowdReactionEvent(ReactionTrigger.LYRIC_LINE, lyricPoints))
     }
 
