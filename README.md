@@ -14,9 +14,16 @@ It's your job to come up with new lyrics that match the original themes of your 
 The game consists of 3 songs. At the start of each song, you'll be given a short list of keywords.
 You're scored based on how well your lyrics relate to these keywords. You can also earn points for having clever rhymes.
 
+For example, if the keywords are "glass," "orange," and "game," you could write the following line:
+
+> Pour me a glass of that juice
+
+The word *glass* is a direct match to one of your keywords, but the word *juice* is related to *glass* and *orange*. Therefore, this line would earn you three matches!
+
 ## Controls
 
 While a song is playing, you sing just by typing the text and pressing enter.
+
 You can also do any of these actions during a song by typing an asterisk (*) before the command.
 * key   - View the song's keywords.
 * stop  - End the song early.
