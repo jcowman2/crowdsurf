@@ -5,6 +5,9 @@ import com.joecowman.crowdsurf.api.model.GameRequest
 import com.joecowman.crowdsurf.api.model.GameResponse
 import com.joecowman.crowdsurf.game.CommandParser
 import com.joecowman.crowdsurf.game.model.GameInstance
+import com.joecowman.crowdsurf.game.util.StrUtil
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("crowdsurf/api")
 class GameController {
+
+    private static Logger LOG = LoggerFactory.getLogger(GameController.class)
 
     @GetMapping("/info")
     ResponseEntity info() {
@@ -37,6 +42,12 @@ class GameController {
 
     @PostMapping("/play")
     ResponseEntity play(@RequestBody GameRequest gameIn) {
+        String keywordString = "null"
+        if (gameIn.state && gameIn.state.currentSong) {
+            keywordString = StrUtil.formatTopics(gameIn.state.currentSong.contextWords)
+        }
+        LOG.info("Play endpoint. { command: $gameIn.command, keywords: $keywordString}")
+
         GameInstance game = CommandParser.parse(gameIn.command, gameIn.state, gameIn.payload)
         game.run()
 
