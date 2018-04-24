@@ -13,7 +13,7 @@ class CrowdsurfEvent extends GameEvent {
     protected void onExecute(GameInstance game) {
         GameState state = game.state
 
-        if (state.songNumber == 3 && state.crowdHype == 100 && state.currentSong.timeRemaining < 30) {
+        if (state.songNumber == 3 && state.crowdHype == 100 && state.currentSong.timeRemaining <= 30) {
             success = true
             state.score *= 2
 

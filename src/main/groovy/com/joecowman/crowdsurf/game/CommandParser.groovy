@@ -20,6 +20,8 @@ class CommandParser {
                 } else if (command == Constants.POST_SONG_NAMES) {
                     state = new GameState()
                     event = new NewGameEvent(songOptions: payload as List<String>)
+                } else if (command == Constants.SONG_DURATION_OVER || command == Constants.SONG_TIMEOUT_COMMAND) {
+                    event = new NoActionEvent() //Delayed song over automated event
                 } else {
                     event = new IllegalCommandEvent("You can't do that yet! Type \"start\" to start the game.")
                 }

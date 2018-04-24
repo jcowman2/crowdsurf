@@ -14,9 +14,9 @@ class GameState {
     List<String> songs = []
 
     String bestScoringLine = "(nothing)"
-    int bestLineScore = 0
+    int bestLineScore = -100
     String worstScoringLine = "(nothing)"
-    int worstLineScore = 0
+    int worstLineScore = 100
 
     LocalDateTime lastRequestTimestamp
 
