@@ -37,6 +37,8 @@ class CommandParser {
                         event = new SongEndEvent("You cut the band off. They stop playing and glare at you.")
                     } else if (command.startsWith("*key")) {
                         event = new PrintKeywordsEvent()
+                    } else if (command.startsWith("*crowdsurf") || command.startsWith("*crowd surf")) {
+                        event = new CrowdsurfEvent()
                     } else if (command == Constants.SONG_TIMEOUT_COMMAND) {
                         event = new LyricTimeoutEvent()
                     } else if (command == Constants.SONG_DURATION_OVER) {
