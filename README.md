@@ -8,7 +8,7 @@ A text-based music game ~ made for Ludum Dare 41
 
 __Crowdsurf is a game about improvisation.__
 
-You play a band's lead singer, who has forgotten the lyrics to his songs during a concert.
+You play a band's lead singer who has forgotten the lyrics to his songs during a concert.
 It's your job to come up with new lyrics that match the original themes of your songs.
 
 The game consists of 3 songs. At the start of each song, you'll be given a short list of keywords.
